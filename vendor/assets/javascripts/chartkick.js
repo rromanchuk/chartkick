@@ -1221,6 +1221,65 @@
           }
         }
       };
+    } else if (chartType === "sparkline") {
+      chartType = "area";
+      chartOptions = {
+        xAxis: {
+          labels: {
+              enabled: false
+          },
+          title: {
+              text: null
+          },
+          startOnTick: false,
+          endOnTick: false,
+          tickPositions: []
+        },
+        yAxis: {
+            endOnTick: false,
+            startOnTick: false,
+            labels: {
+                enabled: false
+            },
+            title: {
+                text: null
+            },
+            tickPositions: [0]
+        },
+        legend: {
+          enabled: false
+        },
+        tooltip: {
+            hideDelay: 0,
+            outside: true,
+            shared: true
+        },
+        plotOptions: {
+          series: {
+              animation: false,
+              lineWidth: 1,
+              shadow: false,
+              states: {
+                  hover: {
+                      lineWidth: 1
+                  }
+              },
+              marker: {
+                  radius: 1,
+                  states: {
+                      hover: {
+                          radius: 2
+                      }
+                  }
+              },
+              fillOpacity: 0.25
+          },
+          column: {
+              negativeColor: '#910000',
+              borderColor: 'silver'
+          }
+        }
+      }
     }
 
     if (chart.options.curve === false) {
@@ -1352,6 +1411,10 @@
 
   defaultExport$1.prototype.renderAreaChart = function renderAreaChart (chart) {
     this.renderLineChart(chart, "areaspline");
+  };
+
+  defaultExport$1.prototype.renderSparkLine = function renderSparkLine (chart) {
+    this.renderLineChart(chart, "sparkline");
   };
 
   defaultExport$1.prototype.destroy = function destroy (chart) {
@@ -2343,6 +2406,26 @@
     return Chartkick.config;
   };
 
+  var SparkLine = /*@__PURE__*/(function (Chart) {
+    function SparkLine () {
+      Chart.apply(this, arguments);
+    }
+
+    if ( Chart ) LineChart.__proto__ = Chart;
+    SparkLine.prototype = Object.create( Chart && Chart.prototype );
+    SparkLine.prototype.constructor = SparkLine;
+
+    SparkLine.prototype.__processData = function __processData () {
+      return processSeries(this);
+    };
+
+    SparkLine.prototype.__chartName = function __chartName () {
+      return "SparkLine";
+    };
+
+    return SparkLine;
+  }(Chart));
+
   var LineChart = /*@__PURE__*/(function (Chart) {
     function LineChart () {
       Chart.apply(this, arguments);
@@ -2537,6 +2620,7 @@
   Chartkick.ScatterChart = ScatterChart;
   Chartkick.BubbleChart = BubbleChart;
   Chartkick.Timeline = Timeline;
+  Chartkick.SparkLine = SparkLine;
 
   // not ideal, but allows for simpler integration
   if (typeof window !== "undefined" && !window.Chartkick) {
