@@ -32,6 +32,11 @@ module Chartkick
       chartkick_chart "Timeline", data_source, **options
     end
 
+    def sparkline(data_source, **options)
+      raise "sparkline only compatitble with highcharts adapter" unless options[:adapter] == "highcharts"
+      chartkick_chart "SparkLine", data_source, **options
+    end
+
     private
 
     # don't break out options since need to merge with default options
