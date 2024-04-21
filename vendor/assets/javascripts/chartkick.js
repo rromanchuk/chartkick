@@ -1224,6 +1224,17 @@
     } else if (chartType === "sparkline") {
       chartType = "area";
       chartOptions = {
+        chart: {
+          backgroundColor: null,
+            borderWidth: 0,
+            type: 'area',
+            margin: [2, 0, 2, 0],
+            width: 120,
+            height: 20,
+            style: {
+                overflow: 'visible'
+            },
+        },
         xAxis: {
           labels: {
               enabled: false
