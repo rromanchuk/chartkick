@@ -2411,7 +2411,7 @@
       Chart.apply(this, arguments);
     }
 
-    if ( Chart ) LineChart.__proto__ = Chart;
+    if ( Chart ) SparkLine.__proto__ = Chart;
     SparkLine.prototype = Object.create( Chart && Chart.prototype );
     SparkLine.prototype.constructor = SparkLine;
 
